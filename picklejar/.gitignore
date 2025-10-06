@@ -1,33 +1,57 @@
-HELP.md
-target/
-.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+# ----------------------------
+# Build artifacts
+# ----------------------------
+/target/
+*.jar
+*.war
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### VS Code ###
+# ----------------------------
+# IDE files
+# ----------------------------
+# VS Code
 .vscode/
+# IntelliJ IDEA
+/.idea/
+/*.iml
+/out/
+# Eclipse
+/.classpath
+/.project
+/.settings/
+
+# ----------------------------
+# Database files
+# ----------------------------
+# H2 in-memory won't persist, but if you ever switch to file-based:
+*.h2.db
+*.h2.lock.db
+/data/
+
+# ----------------------------
+# Logs
+# ----------------------------
+*.log
+
+# ----------------------------
+# OS files
+# ----------------------------
+.DS_Store
+Thumbs.db
+
+# ----------------------------
+# Environment & secrets
+# ----------------------------
+.env
+*.properties.secret
+*.yml.secret
+
+# ----------------------------
+# Spring Boot DevTools
+# ----------------------------
+spring-boot-devtools.properties
+
+# ----------------------------
+# Temporary files
+# ----------------------------
+*.tmp
+*.swp
