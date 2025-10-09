@@ -1,0 +1,57 @@
+# ----------------------------
+# Build artifacts
+# ----------------------------
+/target/
+*.jar
+*.war
+
+# ----------------------------
+# IDE files
+# ----------------------------
+# VS Code
+.vscode/
+# IntelliJ IDEA
+/.idea/
+/*.iml
+/out/
+# Eclipse
+/.classpath
+/.project
+/.settings/
+
+# ----------------------------
+# Database files
+# ----------------------------
+# H2 in-memory won't persist, but if you ever switch to file-based:
+*.h2.db
+*.h2.lock.db
+/data/
+
+# ----------------------------
+# Logs
+# ----------------------------
+*.log
+
+# ----------------------------
+# OS files
+# ----------------------------
+.DS_Store
+Thumbs.db
+
+# ----------------------------
+# Environment & secrets
+# ----------------------------
+.env
+*.properties.secret
+*.yml.secret
+
+# ----------------------------
+# Spring Boot DevTools
+# ----------------------------
+spring-boot-devtools.properties
+
+# ----------------------------
+# Temporary files
+# ----------------------------
+*.tmp
+*.swp
