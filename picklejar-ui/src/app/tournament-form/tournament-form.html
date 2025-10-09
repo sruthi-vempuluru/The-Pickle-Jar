@@ -1,0 +1,193 @@
+<div class="min-h-screen bg-gradient-to-br from-green-50 via-lime-50 to-emerald-50 py-12 px-4">
+  <div class="max-w-2xl mx-auto">
+    <div class="text-center mb-8">
+      <h1 class="text-6xl font-black text-green-800 mb-2 pickle-font">🥒 The Pickle Jar 🥒</h1>
+      <p class="text-green-600 text-xl font-bold pickle-font">Drop your tournament in the jar!</p>
+    </div>
+
+    <div class="relative">
+      <!-- Mason Jar Lid -->
+      <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 w-80 z-10">
+        <div class="relative h-8 bg-gradient-to-b from-gray-300 to-gray-400 rounded-t-3xl border-4 border-gray-500 shadow-xl">
+          <div class="absolute top-1/2 left-0 right-0 h-px bg-gray-500"></div>
+        </div>
+        <div class="h-6 bg-gradient-to-b from-gray-400 to-gray-500 border-l-4 border-r-4 border-b-4 border-gray-600 shadow-lg"></div>
+      </div>
+
+      <!-- Mason Jar Body -->
+      <div class="bg-gradient-to-b from-blue-100/90 to-blue-200/80 backdrop-blur-sm rounded-3xl border-8 border-blue-300 shadow-2xl p-8 pt-16 pb-12 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-white/50 via-transparent to-transparent pointer-events-none rounded-3xl"></div>
+        
+        <!-- Brine bubbles -->
+        <div class="absolute top-10 right-10 w-4 h-4 bg-blue-300/40 rounded-full"></div>
+        <div class="absolute top-20 right-16 w-3 h-3 bg-blue-300/40 rounded-full"></div>
+        <div class="absolute bottom-20 left-12 w-5 h-5 bg-blue-300/40 rounded-full"></div>
+        <div class="absolute bottom-32 left-20 w-2 h-2 bg-blue-300/40 rounded-full"></div>
+
+        <div class="relative z-10 space-y-6">
+          <!-- Tournament Name -->
+          <div>
+            <label class="flex items-center gap-2 text-green-800 font-semibold mb-2">
+              🏆 Tournament Name
+            </label>
+            <input
+              type="text"
+              [(ngModel)]="formData.name"
+              placeholder="Summer Pickle Showdown"
+              class="w-full px-4 py-3 bg-white/90 border-3 border-green-400 rounded-2xl focus:outline-none focus:ring-4 focus:ring-green-300 text-green-900 placeholder-green-400"
+            />
+          </div>
+
+          <!-- Tournament Type & Game Type -->
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="flex items-center gap-2 text-green-800 font-semibold mb-2">
+                🔀 Tournament Type
+              </label>
+              <select
+                [(ngModel)]="formData.type"
+                class="w-full px-4 py-3 bg-white/90 border-3 border-green-400 rounded-2xl focus:outline-none focus:ring-4 focus:ring-green-300 text-green-900"
+              >
+                <option value="SINGLE_ELIM">Single Elimination</option>
+                <option value="DOUBLE_ELIM">Double Elimination</option>
+                <option value="ROUND_ROBIN">Round Robin</option>
+                <option value="LADDER">Ladder</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="flex items-center gap-2 text-green-800 font-semibold mb-2">
+                👥 Game Type
+              </label>
+              <select
+                [(ngModel)]="formData.gameType"
+                class="w-full px-4 py-3 bg-white/90 border-3 border-green-400 rounded-2xl focus:outline-none focus:ring-4 focus:ring-green-300 text-green-900"
+              >
+                <option value="SINGLES">Singles</option>
+                <option value="DOUBLES">Doubles</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Start Date -->
+          <div>
+            <label class="flex items-center gap-2 text-green-800 font-semibold mb-2">
+              📅 Start Date
+            </label>
+            <input
+              type="date"
+              [(ngModel)]="formData.startDate"
+              class="w-full px-4 py-3 bg-white/90 border-3 border-green-400 rounded-2xl focus:outline-none focus:ring-4 focus:ring-green-300 text-green-900"
+            />
+          </div>
+
+          <!-- Seeded Checkbox -->
+          <div class="flex items-center gap-3 bg-white/60 p-4 rounded-2xl border-2 border-green-300">
+            <input
+              type="checkbox"
+              id="seeded"
+              [(ngModel)]="formData.seeded"
+              class="w-5 h-5 text-green-600 border-green-400 rounded focus:ring-green-300"
+            />
+            <label for="seeded" class="text-green-800 font-semibold cursor-pointer">
+              Use Seeded Bracket
+            </label>
+          </div>
+
+          <!-- Add Players -->
+          <div>
+            <label class="flex items-center gap-2 text-green-800 font-semibold mb-2">
+              👥 Add Players to the Jar
+            </label>
+            <div class="flex gap-2">
+              <input
+                type="text"
+                [(ngModel)]="playerName"
+                (keypress)="onKeyPress($event)"
+                placeholder="Player name"
+                class="flex-1 px-4 py-3 bg-white/90 border-3 border-green-400 rounded-2xl focus:outline-none focus:ring-4 focus:ring-green-300 text-green-900 placeholder-green-400"
+              />
+              <button
+                type="button"
+                (click)="addPlayer()"
+                class="px-6 py-3 bg-gradient-to-br from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold rounded-2xl transition-all transform hover:scale-105 shadow-lg"
+              >
+                Add
+              </button>
+            </div>
+          </div>
+
+          <!-- Players List -->
+          <div *ngIf="formData.participants.length > 0" class="bg-white/70 rounded-2xl p-4 border-3 border-green-300 max-h-64 overflow-y-auto">
+            <div class="flex items-center justify-between mb-3">
+              <p class="text-green-800 font-semibold">Pickles in the Jar: {{ formData.participants.length }}</p>
+              <button
+                *ngIf="formData.gameType === 'DOUBLES'"
+                type="button"
+                (click)="generateTeamNames()"
+                class="flex items-center gap-1 px-3 py-1 bg-purple-500 hover:bg-purple-600 text-white text-sm font-semibold rounded-lg transition-all"
+              >
+                ✨ AI Team Names
+              </button>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div *ngFor="let player of formData.participants; let i = index" class="relative group">
+                <!-- Pickle shape -->
+                <div 
+                  [class]="'relative rounded-full px-6 py-3 border-3 border-green-900 shadow-lg transform transition-all hover:scale-105 ' + getPickleShade(i).mid">
+                  
+                  <!-- Light stripe on top -->
+                  <div 
+                    [class]="'absolute top-2 left-4 right-4 h-4 opacity-60 rounded-full ' + getPickleShade(i).light"></div>
+                  
+                  <!-- Wavy dark stripes -->
+                  <div class="absolute inset-0 overflow-hidden rounded-full">
+                    <svg class="absolute inset-0 w-full h-full opacity-25" preserveAspectRatio="none" viewBox="0 0 100 50">
+                      <path d="M 5 12 Q 20 8, 35 12 T 65 12 T 95 12" [attr.stroke]="getPickleShade(i).stroke" stroke-width="1.5" fill="none" />
+                      <path d="M 5 20 Q 20 16, 35 20 T 65 20 T 95 20" [attr.stroke]="getPickleShade(i).stroke" stroke-width="1.5" fill="none" />
+                      <path d="M 5 28 Q 20 24, 35 28 T 65 28 T 95 28" [attr.stroke]="getPickleShade(i).stroke" stroke-width="1.5" fill="none" />
+                      <path d="M 5 36 Q 20 32, 35 36 T 65 36 T 95 36" [attr.stroke]="getPickleShade(i).stroke" stroke-width="1.5" fill="none" />
+                    </svg>
+                  </div>
+                  
+                  <!-- Bumpy texture spots -->
+                  <div [class]="'absolute top-2 left-5 w-2 h-2 opacity-50 rounded-full ' + getPickleShade(i).dark"></div>
+                  <div [class]="'absolute top-1/3 left-8 w-2 h-2 opacity-40 rounded-full ' + getPickleShade(i).dark"></div>
+                  <div [class]="'absolute top-1/4 right-8 w-2 h-2 opacity-50 rounded-full ' + getPickleShade(i).dark"></div>
+                  <div [class]="'absolute bottom-1/3 left-10 w-2 h-2 opacity-40 rounded-full ' + getPickleShade(i).dark"></div>
+                  <div [class]="'absolute bottom-1/4 right-6 w-2 h-2 opacity-50 rounded-full ' + getPickleShade(i).dark"></div>
+                  <div [class]="'absolute top-1/2 right-10 w-1.5 h-1.5 opacity-35 rounded-full ' + getPickleShade(i).dark"></div>
+                  
+                  <!-- Player name -->
+                  <div class="flex items-center justify-between gap-2 relative z-10">
+                    <span class="text-white font-bold text-sm truncate flex-1 drop-shadow-lg">
+                      {{ player }}
+                    </span>
+                    <button
+                      type="button"
+                      (click)="removePlayer(i)"
+                      class="text-white hover:text-red-300 font-bold text-lg opacity-0 group-hover:opacity-100 transition-opacity drop-shadow-lg"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <button
+            (click)="onSubmit()"
+            [disabled]="formData.participants.length < 2"
+            class="w-full py-4 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 disabled:from-gray-400 disabled:to-gray-500 text-white font-bold text-xl rounded-2xl shadow-xl transition-all transform hover:scale-105 disabled:scale-100 disabled:cursor-not-allowed"
+          >
+            {{ formData.participants.length < 2 ? 'Add at least 2 players' : '🥒 Create Tournament 🥒' }}
+          </button>
+        </div>
+      </div>
+
+      <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-3/4 h-8 bg-green-900/20 rounded-full blur-xl"></div>
+    </div>
+  </div>
+</div>
