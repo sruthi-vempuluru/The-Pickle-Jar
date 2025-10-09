@@ -34,7 +34,7 @@
               type="text"
               [(ngModel)]="formData.name"
               placeholder="Summer Pickle Showdown"
-              class="w-full px-4 py-3 bg-white/90 border-3 border-green-400 rounded-2xl focus:outline-none focus:ring-4 focus:ring-green-300 text-green-900 placeholder-green-400"
+              class="w-full px-4 py-3 bg-white/90 border-[3px] border-green-400 rounded-2xl focus:outline-none focus:ring-4 focus:ring-green-300 text-green-900 placeholder-green-400"
             />
           </div>
 
@@ -46,7 +46,7 @@
               </label>
               <select
                 [(ngModel)]="formData.type"
-                class="w-full px-4 py-3 bg-white/90 border-3 border-green-400 rounded-2xl focus:outline-none focus:ring-4 focus:ring-green-300 text-green-900"
+                class="w-full px-4 py-3 bg-white/90 border-[3px] border-green-400 rounded-2xl focus:outline-none focus:ring-4 focus:ring-green-300 text-green-900"
               >
                 <option value="SINGLE_ELIM">Single Elimination</option>
                 <option value="DOUBLE_ELIM">Double Elimination</option>
@@ -61,7 +61,7 @@
               </label>
               <select
                 [(ngModel)]="formData.gameType"
-                class="w-full px-4 py-3 bg-white/90 border-3 border-green-400 rounded-2xl focus:outline-none focus:ring-4 focus:ring-green-300 text-green-900"
+                class="w-full px-4 py-3 bg-white/90 border-[3px] border-green-400 rounded-2xl focus:outline-none focus:ring-4 focus:ring-green-300 text-green-900"
               >
                 <option value="SINGLES">Singles</option>
                 <option value="DOUBLES">Doubles</option>
@@ -77,7 +77,7 @@
             <input
               type="date"
               [(ngModel)]="formData.startDate"
-              class="w-full px-4 py-3 bg-white/90 border-3 border-green-400 rounded-2xl focus:outline-none focus:ring-4 focus:ring-green-300 text-green-900"
+              class="w-full px-4 py-3 bg-white/90 border-[3px] border-green-400 rounded-2xl focus:outline-none focus:ring-4 focus:ring-green-300 text-green-900"
             />
           </div>
 
@@ -105,7 +105,7 @@
                 [(ngModel)]="playerName"
                 (keypress)="onKeyPress($event)"
                 placeholder="Player name"
-                class="flex-1 px-4 py-3 bg-white/90 border-3 border-green-400 rounded-2xl focus:outline-none focus:ring-4 focus:ring-green-300 text-green-900 placeholder-green-400"
+                class="flex-1 px-4 py-3 bg-white/90 border-[3px] border-green-400 rounded-2xl focus:outline-none focus:ring-4 focus:ring-green-300 text-green-900 placeholder-green-400"
               />
               <button
                 type="button"
@@ -118,7 +118,7 @@
           </div>
 
           <!-- Players List -->
-          <div *ngIf="formData.participants.length > 0" class="bg-white/70 rounded-2xl p-4 border-3 border-green-300 max-h-64 overflow-y-auto">
+          <div *ngIf="formData.participants.length > 0" class="bg-white/70 rounded-2xl p-4 border-[3px] border-green-300 max-h-64 overflow-y-auto">
             <div class="flex items-center justify-between mb-3">
               <p class="text-green-800 font-semibold">Pickles in the Jar: {{ formData.participants.length }}</p>
               <button
@@ -134,7 +134,7 @@
               <div *ngFor="let player of formData.participants; let i = index" class="relative group">
                 <!-- Pickle shape -->
                 <div 
-                  [class]="'relative rounded-full px-6 py-3 border-3 border-green-900 shadow-lg transform transition-all hover:scale-105 ' + getPickleShade(i).mid">
+                  [class]="'relative rounded-full px-6 py-3 border-[3px] border-green-900 shadow-lg transition-all hover:scale-105 ' + getPickleShade(i).mid">
                   
                   <!-- Light stripe on top -->
                   <div 

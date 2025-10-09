@@ -1,1 +1,4 @@
-@import "tailwindcss";
+/* Page background behind the jar */
+.app-bg {
+  background: radial-gradient(1200px 500px at 50% -100px, #f0fdf4 10%, #eaffd5 40%, #dcfce7 70%);
+}
