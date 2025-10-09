@@ -14,4 +14,8 @@ public class Player {
     private int rating = 1000; // default
     private int wins = 0;
     private int losses = 0;
+
+    @ManyToOne
+    @JoinColumn(name = "tournament_id")
+    private Tournament tournament; // <-- needed for mappedBy in Tournament
 }
