@@ -9,6 +9,8 @@ The Pickle Jar: Serving up brackets, ladders, partners, and courts ... just add 
 ### Prerequisites
 - Java 17+
 - Maven
+- Node.js 18+
+- npm
 
 ### Clone the Repository
 ```bash
