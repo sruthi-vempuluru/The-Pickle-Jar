@@ -22,6 +22,20 @@ mvn clean install
 mvn spring-boot:run
 ```
 
+### Run the Frontend (React)
+
+In a separate terminal:
+
+```bash
+cd frontend
+npm install    
+npm start         
+```
+
+
+This will start the frontend dev server on
+http://localhost:3000
+
 
 
 ## Core Features to Build
