@@ -1,0 +1,91 @@
+# ============================
+# 🌱 Angular Frontend
+# ============================
+
+# Node dependencies
+frontend/node_modules/
+frontend/.angular/
+frontend/.pnp
+frontend/pnpm-lock.yaml
+frontend/package-lock.json
+frontend/yarn.lock
+
+# Build output
+frontend/dist/
+frontend/out/
+frontend/.output/
+frontend/.cache/
+
+# Testing
+frontend/coverage/
+
+# Environment files
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# Logs
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# Misc
+frontend/.DS_Store
+
+# ============================
+# ☕ Spring Boot Backend
+# ============================
+
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# Gradle (if using Gradle instead of Maven)
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# IDEs
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+.vscode/
+
+# Logs & DBs
+*.log
+logs/
+*.db
+*.sqlite
+*.sqlite3
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Packages
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# JVM crash logs
+hs_err_pid*
+replay_pid*
