@@ -1,4 +1,4 @@
-package com.thepicklejar.config;
+package com.thepicklejar.picklejar.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,15 +7,22 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebConfig {
+    
+    public WebConfig() {
+        System.out.println("🥒🥒🥒 WebConfig LOADED 🥒🥒🥒");
+    }
+    
     @Bean
     public WebMvcConfigurer corsConfigurer() {
+        System.out.println("🥒🥒🥒 CORS Configuration Applied 🥒🥒🥒");
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**")
-                        .allowedOrigins("http://localhost:3000") // your React port
-                        .allowedMethods("GET", "POST", "PUT", "DELETE")
-                        .allowedHeaders("*");
+                        .allowedOrigins("http://localhost:3000")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowedHeaders("*")
+                        .allowCredentials(true);
             }
         };
     }

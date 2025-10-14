@@ -2,6 +2,8 @@ package com.thepicklejar.picklejar.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Data
@@ -17,5 +19,6 @@ public class Player {
 
     @ManyToOne
     @JoinColumn(name = "tournament_id")
+    @JsonIgnore  // <-- ADD THIS
     private Tournament tournament; // <-- needed for mappedBy in Tournament
 }

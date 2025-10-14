@@ -89,3 +89,23 @@ Thumbs.db
 # JVM crash logs
 hs_err_pid*
 replay_pid*
+
+# ============================
+# 🐳 Docker
+# ============================
+
+# Docker environment files
+.env
+
+# Docker volumes and build artifacts
+docker-data/
+volumes/
+*.pid
+
+# Docker Compose override files
+docker-compose.override.yml
+docker-compose*.backup.yml
+
+# Other temp files
+*.tar
+
