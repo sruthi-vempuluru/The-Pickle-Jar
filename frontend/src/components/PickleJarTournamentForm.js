@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Users, Trophy, Calendar, Shuffle, Sparkles } from 'lucide-react';
 
 export default function PickleJarTournamentForm() {
@@ -11,7 +11,43 @@ export default function PickleJarTournamentForm() {
     participants: []
   });
 
-  const [playerName, setPlayerName] = useState('');
+  const [availablePlayers, setAvailablePlayers] = useState([]);
+  const [selectedPlayerId, setSelectedPlayerId] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Fetch players from API on component mount
+  useEffect(() => {
+    const fetchPlayers = async () => {
+      try {
+        const response = await fetch('/api/players', {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }
+        });
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+          throw new Error('Server did not return JSON. Check CORS configuration.');
+        }
+        
+        const data = await response.json();
+        setAvailablePlayers(data);
+      } catch (err) {
+        console.error('Error fetching players:', err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPlayers();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -22,12 +58,15 @@ export default function PickleJarTournamentForm() {
   };
 
   const addPlayer = () => {
-    if (playerName.trim()) {
-      setFormData(prev => ({
-        ...prev,
-        participants: [...prev.participants, playerName.trim()]
-      }));
-      setPlayerName('');
+    if (selectedPlayerId) {
+      const player = availablePlayers.find(p => p.id === parseInt(selectedPlayerId));
+      if (player && !formData.participants.some(p => p.id === player.id)) {
+        setFormData(prev => ({
+          ...prev,
+          participants: [...prev.participants, player]
+        }));
+        setSelectedPlayerId('');
+      }
     }
   };
 
@@ -172,23 +211,36 @@ export default function PickleJarTournamentForm() {
                   <Users className="w-5 h-5" />
                   Add Players to the Jar
                 </label>
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    value={playerName}
-                    onChange={(e) => setPlayerName(e.target.value)}
-                    placeholder="Player name"
-                    onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addPlayer())}
-                    className="flex-1 px-4 py-3 bg-white/90 border-3 border-green-400 rounded-2xl focus:outline-none focus:ring-4 focus:ring-green-300 text-green-900 placeholder-green-400"
-                  />
-                  <button
-                    type="button"
-                    onClick={addPlayer}
-                    className="px-6 py-3 bg-gradient-to-br from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold rounded-2xl transition-all transform hover:scale-105 shadow-lg"
-                  >
-                    Add
-                  </button>
-                </div>
+                {loading ? (
+                  <div className="text-green-600 text-center py-4">Loading players...</div>
+                ) : error ? (
+                  <div className="text-red-600 text-center py-4">Error: {error}</div>
+                ) : (
+                  <div className="flex gap-2">
+                    <select
+                      value={selectedPlayerId}
+                      onChange={(e) => setSelectedPlayerId(e.target.value)}
+                      className="flex-1 px-4 py-3 bg-white/90 border-3 border-green-400 rounded-2xl focus:outline-none focus:ring-4 focus:ring-green-300 text-green-900"
+                    >
+                      <option value="">Select a player...</option>
+                      {availablePlayers
+                        .filter(player => !formData.participants.some(p => p.id === player.id))
+                        .map(player => (
+                          <option key={player.id} value={player.id}>
+                            {player.displayName}
+                          </option>
+                        ))}
+                    </select>
+                    <button
+                      type="button"
+                      onClick={addPlayer}
+                      disabled={!selectedPlayerId}
+                      className="px-6 py-3 bg-gradient-to-br from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 disabled:from-gray-400 disabled:to-gray-500 text-white font-bold rounded-2xl transition-all transform hover:scale-105 disabled:scale-100 shadow-lg"
+                    >
+                      Add
+                    </button>
+                  </div>
+                )}
               </div>
 
               {formData.participants.length > 0 && (
@@ -248,7 +300,7 @@ export default function PickleJarTournamentForm() {
                             {/* Player name */}
                             <div className="flex items-center justify-between gap-2 relative z-10">
                               <span className="text-white font-bold text-sm truncate flex-1 drop-shadow-lg">
-                                {player}
+                                {player.displayName}
                               </span>
                               <button
                                 type="button"
