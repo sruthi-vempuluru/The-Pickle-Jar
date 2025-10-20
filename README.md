@@ -6,11 +6,6 @@ The Pickle Jar: Serving up brackets, ladders, partners, and courts ... just add 
 
 ## Local Setup / Running the App
 
-### Prerequisites
-- Java 17+
-- Maven
-- Node.js 18+
-- npm
 
 ### Clone the Repository
 ```bash
@@ -19,25 +14,43 @@ cd The-Pickle-Jar/picklejar
 ```
 
 ### Build the Project
-```bash
-mvn clean install
-mvn spring-boot:run
-```
-
-### Run the Frontend (React)
-
-In a separate terminal:
+### 1. Build and Run the Containers
+Run all services (frontend, backend, database) with one command:
 
 ```bash
-cd frontend
-npm install    
-npm start         
+docker-compose up --build
 ```
 
+This will:
+- Start PostgreSQL at port 5432
+- Start the Spring Boot backend at port 8080
+- Start the React frontend at port 3000
 
-This will start the frontend dev server on
-http://localhost:3000
+2. Access the App
 
+Once everything builds successfully:
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:8080/api/players
+- Database: localhost:5432 (credentials are in your docker-compose.yml or .env)
+
+3. Stopping the App
+
+Press Ctrl + C to stop containers, or:
+```bash
+docker-compose down
+```
+
+To remove volumes and wipe the database:
+```bash
+docker-compose down -v
+```
+
+4. Rebuilding After Code Changes
+
+If you update code, rebuild the containers:
+```bash
+docker-compose up --build
+```
 
 
 ## Core Features to Build
